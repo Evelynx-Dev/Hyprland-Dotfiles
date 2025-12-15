@@ -1,0 +1,29 @@
+# Configuración para centrado perfecto en pantalla
+width=900
+height=600
+location=center
+
+# Comportamiento de ventana - IMPORTANTE para centrado
+layer=overlay
+anchor=center
+margin=0,0,0,0
+
+# Apariencia
+hide_search=false
+allow_images=true
+allow_markup=true
+hide_scroll=false
+columns=2
+line_count=8
+matching=fuzzy
+insensitive=true
+
+# Comportamiento
+close_on_focus_loss=true
+dynamic_lines=true
+orientation=vertical
+
+# Opciones de entrada
+cache_file=~/.cache/wofi-drun
+mode=drun
+term=kitty

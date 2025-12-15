@@ -1,0 +1,184 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 40,
+    "spacing": 4,
+    "margin-top": 0,
+    "margin-bottom": 2,
+    "margin-left": 0,
+    "margin-right": 0,
+    "modules-left": ["custom/arch", "custom/sep1", "battery", "custom/sep2", "hyprland/workspaces"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["tray", "pulseaudio", "backlight", "memory", "cpu", "temperature", "network", "bluetooth", "clock"],
+    
+    // MÓDULO ARCH
+    "custom/arch": {
+        "format": "󰣇",
+        "tooltip": false,
+        "on-click": "wofi -show drun --style ~/.config/wofi/style.css",
+        "on-click-middle": "kitty",
+        "on-click-right": "thunar"
+    },
+    
+    // SEPARADOR
+    "custom/sep1": {
+        "format": "│",
+        "tooltip": false,
+        "interval": "once"
+    },
+
+    "battery": {
+        "interval": 30,
+        "format": "{icon} {capacity}%",
+        "format-icons": ["   ", "   ", "   ", "   ", "   "],
+        "format-charging": "󰂄   {capacity}%",
+        "format-plugged": "󰚥   {capacity}%",
+        "format-full": "    100%",
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "exec-if": "test -d /sys/class/power_supply/BAT*",
+        "tooltip": false
+    },
+
+    // SEPARADPR
+    "custom/sep2": {
+        "format": "│",
+        "tooltip": false,
+        "interval": "once"
+    },
+    
+    // WORKSPACES
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "separator": "|",
+        "format-icons": {
+            "1": "Iris", 
+            "2": "Alice", 
+            "3": "Eve", 
+            "4": "Ayre", 
+            "5": "Cirel", 
+            "9": "九",
+
+            "urgent": "", 
+            "focused": "", 
+            "default": ""
+        }
+    },
+    
+    // VENTANA ACTIVA
+    "hyprland/window": {
+        "format": "{}",
+        "format-alt": "Wellcome Back ^^",
+        "max-length": 65,
+        "tooltip": false
+    },
+    
+    // SYSTEM TRAY
+    "tray": {
+        "icon-size": 16,
+        "spacing": 6,
+        "show-passive-items": true
+    },
+    
+    // VOLUMEN
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰖁   Mute",
+        "format-icons": {
+            "default": [
+                "󰕿 ", 
+                "󰖀 ", 
+                "󰕾 "
+            ]
+        },
+        "scroll-step": 1,
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-middle": "pavucontrol",
+        "on-click-right": "pactl set-sink-volume @DEFAULT_SINK@ 50%",
+        "tooltip": false
+    },
+    
+    // BRILLO
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "󰃞 ", 
+            "󰃟 ", 
+            "󰃠 "
+        ],
+        "on-click": "brightnessctl set 10%+",
+        "on-click-middle": "brightnessctl set 50%",
+        "on-click-right": "brightnessctl set 10%-",
+        "tooltip": false
+    },
+    
+    // MEMORIA
+    "memory": {
+        "interval": 1,
+        "format": "     {percentage}%",
+        "tooltip-format": "RAM: {used:0.1f}GiB / {total:0.1f}GiB",
+        "states": {
+            "warning": 60,
+            "critical": 90
+        },
+        "tooltip": true
+    },
+    
+    // CPU
+    "cpu": {
+        "interval": 1,
+        "format": "    {usage}%",
+        "states": {
+            "warning": 70,
+            "critical": 85
+        },
+        "tooltip": false
+    },
+    
+    // TEMPERATURA
+    "temperature": {
+        "thermal-zone": 0,
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        "interval": 5,
+        "format": "{icon} {temperatureC}°C",
+        "format-icons": ["󰔄 ", "󰔏 ", "󰔐 "],
+        "format-critical": "󰔑 {temperatureC}°C",
+        "tooltip": false
+    },
+    
+    // RED
+    "network": {
+        "interval": 5,
+        "format": "{ifname}",
+        "format-wifi": "󰖩  {essid}",
+        "format-ethernet": "󰈀  Ethernet",
+        "format-disconnected": "󰖪  Offline",
+        "tooltip-format": "IP: {ipaddr}",
+        "on-click": "sh -c 'ip -4 addr show | grep inet | grep -v 127.0.0.1 | head -1 | awk \"{print \\$2}\" | cut -d/ -f1 | xargs -I {} notify-send \"IP Actual\" \"{}\"'",
+        "tooltip": true
+    },
+    
+    // BLUETOOTH
+    "bluetooth": {
+        "interval": 5,
+        "format": "󰂯",
+        "format-connected": "󰂱 {device_alias}",
+        "tooltip-format": "Bluetooth: {status}",
+        "on-click": "blueman-manager",
+        "on-click-middle": "bluetoothctl power $(bluetoothctl show | grep -q \"Powered: yes\" && echo off || echo on)",
+        "tooltip": true
+    },
+    
+    // RELOJ
+    "clock": {
+        "interval": 1,
+        "format": "{:%H:%M}",
+        "tooltip-format": "<span size='large'>{:%A, %d de %B de %Y}</span>",
+        "locale": "es_ES.UTF-8",
+        "tooltip": true
+    }
+}

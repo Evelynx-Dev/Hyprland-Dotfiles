@@ -1,0 +1,154 @@
+/* ANIMACIONES - DEBEN ESTAR AL NIVEL SUPERIOR */
+@keyframes urgent-pulse {
+    0% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+@keyframes critical-alert {
+    0% { background-color: rgba(255, 85, 85, 0.1); }
+    100% { background-color: rgba(255, 85, 85, 0.25); }
+}
+
+/* RESET Y CONFIGURACIÓN GLOBAL */
+* {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
+    font-size: 12px;
+    min-height: 0;
+}
+
+/* BARRA PRINCIPAL */
+window#waybar {
+    background-color: rgba(10, 12, 18, 0.95);
+    color: #e0e0e0;
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0px;
+}
+
+/* ESTILOS UNIFORMES PARA TODOS LOS MÓDULOS */
+#custom-arch,
+#custom-sep1,
+#battery,
+#custom-sep2,
+#workspaces,
+#window,
+#tray,
+#memory,
+#cpu,
+#temperature,
+#network,
+#bluetooth,
+#pulseaudio,
+#backlight,
+#clock {
+    padding: 0px 12px;
+    margin: 2px 1px;
+    background-color: rgba(20, 22, 30, 0.85);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* MÓDULO ARCH */
+#custom-arch {
+    padding: 0 84px;
+    background-color: rgba(170, 45, 253, 0.300);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+    margin-right: 4px;
+    margin-left: 4px;
+}
+
+/* SEPARADOR */
+#custom-sep1 {
+    background-color: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    padding: 0px 6px;
+    margin: 0px 2px;
+}
+
+/* BATERÍA */
+#battery {
+    color: #8be9fd;
+}
+#battery.charging {
+    color: #50fa7b;
+}
+#battery.plugged {
+    color: #ffb86c;
+}
+#battery.warning {
+    color: #ffd54f;
+}
+#battery.critical {
+    color: #ff5555;
+    animation: critical-alert 0.8s ease-in-out infinite alternate; /* Misma animación que la temperatura crítica */
+}
+
+/* SEPARADOR */
+#custom-sep2 {
+    background-color: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    padding: 0px 6px;
+    margin: 0px 2px;
+}
+
+/* WORKSPACES */
+#workspaces button {
+    color: rgba(224, 224, 224, 0.7);
+    padding: 0px 6px;
+    margin: 0px 4px;
+    background-color: transparent;
+    border: none;
+}
+
+#workspaces button:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+#workspaces button.focused {
+    color: #5865f2;
+    font-weight: bold;
+}
+
+#workspaces button.urgent {
+    color: #ff5555;
+    animation: urgent-pulse 1.5s ease-in-out infinite alternate;
+}
+
+/* VENTANA ACTIVA */
+#window {
+    color: #b0b0b0;
+    font-style: italic;
+    padding: 0px 16px;
+    background-color: rgba(30, 32, 40, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* COLORES ESPECÍFICOS */
+#memory { color: #64b5f6; }
+#cpu { color: #81c784; }
+#temperature { color: #ffb74d; }
+#temperature.critical {
+    color: #ff5555;
+    animation: critical-alert 0.8s ease-in-out infinite alternate;
+}
+
+#network { color: #4fc3f7; }
+#network.disconnected { color: #ff5555; }
+#bluetooth { color: #7986cb; }
+#bluetooth.connected { color: #4fc3f7; }
+#pulseaudio { color: #ba68c8; }
+#pulseaudio.muted { color: #ff5555; }
+#backlight { color: #ffd54f; }
+#clock { color: #a5d6a7; font-weight: 500; }
+
+/* SYSTEM TRAY */
+#tray { padding: 0px 10px; }
+#tray > .passive { -gtk-icon-effect: dim; }
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    color: #ffd54f;
+}
